@@ -4,7 +4,7 @@
 #include "lauxlib.h"
 #include "lnodeaux.h"
 #include "module.h"
-#include "lobiect.h"
+#include "lobject.h"
 
 static const char* HELLOWORLD_METATABLE = NODEMCU_MODULE_METATABLE();
 
