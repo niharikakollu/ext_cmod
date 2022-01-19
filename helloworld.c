@@ -25,7 +25,7 @@ static int helloworld_add(lua_State* L)
 {
     int n= lua_gettop(L);
   int num1 = lua_tonumber( L, 1 );
-  int num2 = lua_tonumber( L, 2 );
+  int num2 = lua_tonumber( L, 3);
     int tadd=num1+num2;
      printf("number of arguments, %d:\n", n);
    lua_pushnumber(L, tadd);
