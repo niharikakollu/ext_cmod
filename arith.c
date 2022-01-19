@@ -46,7 +46,7 @@ static int arithmetic_mul(lua_State* L){
   float num2 = lua_tonumber( L, 2);
   float div_test=num1/num2;
   sprintf(div_res, "%f",div_test);
-  printf("number of arguments, %d:\nnum1 %d ,num2 %d\n", n,num1,num2);
+  printf("number of arguments, %d:\nnum1 %f ,num2 %f\n", n,num1,num2);
     lua_pushnumber( L, div_test );
     return 1;
 }
