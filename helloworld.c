@@ -20,7 +20,7 @@ static int helloworld_hello(lua_State* L) {
 }
 
 // addition c module
-static int helloworld_add(lua_state* L)
+static int helloworld_add(lua_State* L)
 {
     int num1 = luaL_checkinteger( L, 1 );
   int num2 = luaL_checkinteger( L, 2 );
