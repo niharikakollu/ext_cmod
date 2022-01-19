@@ -24,10 +24,10 @@ static int helloworld_hello(lua_State* L) {
 static int helloworld_add(lua_State* L)
 {
     int n= lua_gettop(L);
-  int num1 = lua_tonumber( L, 1);
-  int num2 = lua_tonumber( L, 2);
+  int num1 = lua_tonumber( L, 2);
+  int num2 = lua_tonumber( L, 3);
     int tadd=num1+num2;
-     printf("number of arguments, %d:\n, num1 %d ,num2 %d \n", n,num1,num2);
+     printf("number of arguments, %d:\n, num1 %d ,num2 %d  num3 %d \n", n,num1,num2,lua_tonumber( L, 1));
     lua_pushinteger( L, (lua_Integer )tadd );
     return 1;
 }
