@@ -4,6 +4,7 @@
 #include "lauxlib.h"
 #include "lnodeaux.h"
 #include "module.h"
+#include "lobiect.h"
 
 static const char* HELLOWORLD_METATABLE = NODEMCU_MODULE_METATABLE();
 
@@ -24,7 +25,7 @@ static int helloworld_add(lua_State* L)
 {
     int num1 = luaL_checkinteger( L, 1 );
   int num2 = luaL_checkinteger( L, 2 );
-    int tadd=num1+num2;
+    int tadd=intarith (L, LUA_OPADD, num1,num2);
     lua_pushinteger( L, ( lua_Integer ) tadd );
     return 1;
 }
