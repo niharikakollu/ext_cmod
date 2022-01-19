@@ -40,12 +40,14 @@ static int arithmetic_mul(lua_State* L){
 // division module
  static int arithmetic_div(lua_State* L)
 {
+  char div_res[20];
   int n= lua_gettop(L);
   int num1 = lua_tonumber( L, 1);
   int num2 = lua_tonumber( L, 2);
   float div_test=num1/num2;
+  sprintf(div_res, "%f",div_test);
   printf("number of arguments, %d:\nnum1 %d ,num2 %d\n", n,num1,num2);
-    lua_pushnumber( L, div_test );
+    lua_pushstring( L, div_res );
     return 1;
 }
 LROT_BEGIN(arith_metatable)
