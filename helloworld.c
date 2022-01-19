@@ -19,6 +19,15 @@ static int helloworld_hello(lua_State* L) {
     return 0;
 }
 
+// addition c module
+static int helloworld_add(lua_state* L)
+{
+    int num1 = luaL_checkinteger( L, 1 );
+  int num2 = luaL_checkinteger( L, 2 );
+    int tadd=num1+num2;
+    lua_pushinteger( L, ( lua_Integer ) tadd );
+    return 1;
+}
 // helloworld_delete is called on garbage collection
 static int helloworld_delete(lua_State* L) {
     hello_context_t* context = (hello_context_t*)luaL_checkudata(L, 1, HELLOWORLD_METATABLE);
@@ -43,6 +52,7 @@ static int helloworld_new(lua_State* L) {
 // object function map:
 LROT_BEGIN(helloworld_metatable)
 LROT_FUNCENTRY(hello, helloworld_hello)
+LROT_FUNCENTRY(tealadd, helloworld_add)
 LROT_FUNCENTRY(__gc, helloworld_delete)
 LROT_TABENTRY(__index, helloworld_metatable)
 LROT_END(helloworld_metatable, NULL, 0)
