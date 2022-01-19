@@ -24,11 +24,10 @@ static int helloworld_hello(lua_State* L) {
 static int helloworld_add(lua_State* L)
 {
     int n= lua_gettop(L);
-  int num1 = lua_tonumber( L, 2);
-  int num2 = lua_tonumber( L, 3);
-    int num3=lua_tonumber( L, 1);
+  int num1 = lua_tonumber( L, 1);
+  int num2 = lua_tonumber( L, 2);
     int tadd=num1+num2;
-     printf("number of arguments, %d:\n, num1 %d ,num2 %d  num3 %d \n", n,num1,num2,num3);
+     printf("number of arguments, %d:\n, num1 %d ,num2 %d\n", n,num1,num2);
     lua_pushinteger( L, (lua_Integer )tadd );
     return 1;
 }
@@ -56,7 +55,6 @@ static int helloworld_new(lua_State* L) {
 // object function map:
 LROT_BEGIN(helloworld_metatable)
 LROT_FUNCENTRY(hello, helloworld_hello)
-LROT_FUNCENTRY(tealadd, helloworld_add)
 LROT_FUNCENTRY(__gc, helloworld_delete)
 LROT_TABENTRY(__index, helloworld_metatable)
 LROT_END(helloworld_metatable, NULL, 0)
@@ -64,6 +62,7 @@ LROT_END(helloworld_metatable, NULL, 0)
 // Module function map
 LROT_BEGIN(module)
 LROT_FUNCENTRY(new, helloworld_new)
+LROT_FUNCENTRY(tealadd, helloworld_add)
 LROT_END(module, NULL, 0)
 
 // module_init is invoked on device startup
