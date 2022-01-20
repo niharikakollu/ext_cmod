@@ -31,6 +31,19 @@ static int helloworld_add(lua_State* L)
     lua_pushinteger( L, (lua_Integer )tadd );
     return 1;
 }
+//concat string
+static int string_concat(lua_State* L)
+{
+   const char *sdata1,*sdata2;
+    size_t datalen;
+    datalen = lua_objlen( L, 1 );
+    sdata1=luaL_checklstring( L,1, &datalen );
+     datalen = lua_objlen( L, 2);
+    sdata1=luaL_checklstring( L,2, &datalen );
+    strcat(sdata1,sdata2);
+    lua_pushstring(L,sdata1);
+    return 1;
+}
 // helloworld_delete is called on garbage collection
 static int helloworld_delete(lua_State* L) {
     hello_context_t* context = (hello_context_t*)luaL_checkudata(L, 1, HELLOWORLD_METATABLE);
