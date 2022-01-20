@@ -2,7 +2,7 @@
 #include "lauxlib.h"
 #include "lnodeaux.h"
 #include "module.h"
-#include "string.h"
+#include<string.h>
 static const char* ARITHMETIC_METATABLE = NODEMCU_MODULE_METATABLE();
 // addition module
 static int arithmetic_add(lua_State* L)
@@ -59,7 +59,8 @@ static int string_concat(lua_State* L)
     sdata1=luaL_checklstring( L,1, &datalen );
      datalen = lua_objlen( L, 2);
     sdata2=luaL_checklstring( L,2, &datalen );
-    strcat(sdata1,sdata2);
+     printf("two strings  %s:\n %s",sdata1,sdata2);
+    //strcat(sdata1,sdata2);
     lua_pushstring(L,sdata1);
     return 1;
 }
