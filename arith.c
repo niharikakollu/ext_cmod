@@ -62,9 +62,8 @@ static int arithmetic_mul(lua_State* L){
        if( data< 0 || data> 255 )
        return luaL_error( L, "table value does not fit in 1 byte" );
        printf("table data %d\n", data);  
-	 lua_pushinteger(L, (lua_Integer )i);
-         lua_pushinteger(L, (lua_Integer )data);
-	 lua_settable (L,-2);	
+	 lua_pushinteger(L, (lua_Integer )data);
+         lua_rawseti( L,-2, i + 1 );	
       }
      } 
    return 2;
