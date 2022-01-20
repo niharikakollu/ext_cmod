@@ -64,9 +64,11 @@ static int arithmetic_mul(lua_State* L){
         if( data < 0 || data > 255 )
           return luaL_error( L, "table value does not fit in 1 byte" );
 	      printf("table data %d\n", data);
+	  lua_pushinteger(L, data);
+      lua_setfield(L, -2, i+1);    
       }
   }
-   return 0;
+   return 1;
  }
 LROT_BEGIN(arith_metatable)
 LROT_END(arith_metatable, NULL, 0)
