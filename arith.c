@@ -50,6 +50,24 @@ static int arithmetic_mul(lua_State* L){
     lua_pushnumber( L, div_test );
     return 1;
 }
+ static int load_arr(lua_State* L){
+  int data;
+  size_t datalen, i;
+  if( lua_istable( L,1))
+    {
+     datalen = lua_objlen( L,1 );
+      for( i = 0; i < datalen; i ++ )
+      {
+        lua_rawgeti( L, 1, i + 1 );
+        data = ( int )luaL_checkinteger( L, -1 );
+        lua_pop( L, 1 );
+        if( data < 0 || data > 255 )
+          return luaL_error( L, "table value does not fit in 1 byte" );
+	      printf("table data %d\n", data);
+      }
+  }
+   return 0;
+ }
 LROT_BEGIN(arith_metatable)
 LROT_END(arith_metatable, NULL, 0)
 
