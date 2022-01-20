@@ -53,10 +53,10 @@ static int arithmetic_mul(lua_State* L){
 // string concatination module
 static int string_concat(lua_State* L)
 {
-    size_t datalen,datalen2;
-    datalen = lua_objlen( L, 1 );
-    datalen2 = lua_objlen( L, 2);
-   const char *sdata1=luaL_checkstring(L,1, &datalen), *sdata2=luaL_checkstring(L,1,&datalen2);
+  //  size_t datalen,datalen2;
+   // datalen = lua_objlen( L, 1 );
+   // datalen2 = lua_objlen( L, 2);
+   const char *sdata1=luaL_checkstring(L,1), *sdata2=luaL_checkstring(L,2);
      printf("two strings  %s:\n %s",sdata1,sdata2);
     //strcat(sdata1,sdata2);
     lua_pushfstring(L,sdata1,sdata2);
