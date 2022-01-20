@@ -76,6 +76,7 @@ LROT_FUNCENTRY(add, arithmetic_add)
 LROT_FUNCENTRY(sub, arithmetic_sub)
 LROT_FUNCENTRY(mul, arithmetic_mul)
 LROT_FUNCENTRY(div, arithmetic_div)
+LROT_FUNCENTRY(larr,load_arr)
 LROT_END(module, NULL, 0)
 
 // module_init is invoked on device startup
