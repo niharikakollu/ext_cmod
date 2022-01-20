@@ -52,6 +52,7 @@ static int arithmetic_mul(lua_State* L){
 }
  static int load_arr(lua_State* L){
   int data;
+  char *s;
   size_t datalen, i;
   if( lua_istable( L,1))
     {
@@ -59,14 +60,17 @@ static int arithmetic_mul(lua_State* L){
       for( i = 0; i < datalen; i ++ )
       {
         lua_rawgeti( L, 1, i + 1 );
-        if( lua_type( L, -1 ) == LUA_TNUMBER )
-          lua_pushnumber( L, -1 );
-        else if(lua_type( L, -1 ) == LUA_TSTRING)
-	  lua_pushstring(L,-1);
+        if( lua_type( L, -1 ) == LUA_TNUMBER ){
+	 data=luaL_checkinteger(L,-1)
+         if( data < 0 || data > 255 )
+          return luaL_error( L, "table value does not fit in 1 byte" ); 
+          lua_pushnumber(L, data);
+	}
+        else if(lua_type( L, -1 ) == LUA_TSTRING){
+	 s= luaL_checklstring( L,-1);
+	  lua_pushstring(L,s);
+	}
           lua_pop( L, 1 );
-        if( data < 0 || data > 255 )
-          return luaL_error( L, "table value does not fit in 1 byte" );
-	      printf("table data %d\n", data);   
       }
   }
    return 1;
