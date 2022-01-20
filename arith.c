@@ -72,7 +72,7 @@ static int arithmetic_mul(lua_State* L){
         lua_pop( L, 1 );
       }
   }
-   return 1;
+   return 2;
  }
 LROT_BEGIN(arith_metatable)
 LROT_END(arith_metatable, NULL, 0)
