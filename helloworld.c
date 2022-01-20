@@ -34,7 +34,7 @@ static int helloworld_add(lua_State* L)
 //concat string
 static int string_concat(lua_State* L)
 {
-   const char *sdata1,*sdata2;
+   char *sdata1,*sdata2;
     size_t datalen;
     datalen = lua_objlen( L, 1 );
     sdata1=luaL_checklstring( L,1, &datalen );
