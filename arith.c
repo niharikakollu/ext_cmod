@@ -2,7 +2,6 @@
 #include "lauxlib.h"
 #include "lnodeaux.h"
 #include "module.h"
-
 static const char* ARITHMETIC_METATABLE = NODEMCU_MODULE_METATABLE();
 // addition module
 static int arithmetic_add(lua_State* L)
@@ -52,7 +51,6 @@ static int arithmetic_mul(lua_State* L){
 }
  static int load_arr(lua_State* L){
   int data;
-  char *s;
   size_t datalen, i;
   if( lua_istable( L,1))
     {
