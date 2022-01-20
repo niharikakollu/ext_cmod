@@ -58,9 +58,9 @@ static int arithmetic_mul(lua_State* L){
        lua_rawgeti( L, 1, i + 1 );
        data[i] = ( int )luaL_checkinteger( L, -1 );
        lua_pop( L, 1 );
-       if( data < 0 || data > 255 )
+       if( data[i] < 0 || data[i] > 255 )
        return luaL_error( L, "table value does not fit in 1 byte" );
-       printf("table data %d\n", data);  
+       printf("table data %d\n", data[i]);  
       }
      }
     lua_newtable( L );  
