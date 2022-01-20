@@ -59,13 +59,14 @@ static int arithmetic_mul(lua_State* L){
       for( i = 0; i < datalen; i ++ )
       {
         lua_rawgeti( L, 1, i + 1 );
-        data = ( int )luaL_checkinteger( L, -1 );
-        lua_pop( L, 1 );
+        if( lua_type( L, -1 ) == LUA_TNUMBER )
+          lua_pushnumber( L, -1 );
+        else if(lua_type( L, -1 ) == LUA_TSTRING)
+	  lua_pushstring(L,-1);
+          lua_pop( L, 1 );
         if( data < 0 || data > 255 )
           return luaL_error( L, "table value does not fit in 1 byte" );
-	      printf("table data %d\n", data);
-	  lua_pushinteger(L, data);
-      lua_setfield(L, -2, i+1);    
+	      printf("table data %d\n", data);   
       }
   }
    return 1;
