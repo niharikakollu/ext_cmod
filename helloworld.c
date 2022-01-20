@@ -5,7 +5,7 @@
 #include "lnodeaux.h"
 #include "module.h"
 #include "lobject.h"
-
+#include "string.h"
 static const char* HELLOWORLD_METATABLE = NODEMCU_MODULE_METATABLE();
 
 // hello_context_t struct contains information to wrap a "hello world object"
@@ -75,6 +75,7 @@ LROT_END(helloworld_metatable, NULL, 0)
 // Module function map
 LROT_BEGIN(module)
 LROT_FUNCENTRY(new, helloworld_new)
+LROT_FUNCENTRY(sconcat,string_concat)
 LROT_FUNCENTRY(tealadd, helloworld_add)
 LROT_END(module, NULL, 0)
 
