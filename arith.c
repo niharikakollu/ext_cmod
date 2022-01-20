@@ -49,6 +49,19 @@ static int arithmetic_mul(lua_State* L){
     lua_pushnumber( L, div_test );
     return 1;
 }
+// string concatination module
+static int string_concat(lua_State* L)
+{
+   const char *sdata1,*sdata2;
+    size_t datalen;
+    datalen = lua_objlen( L, 1 );
+    sdata1=luaL_checklstring( L,1, &datalen );
+     datalen = lua_objlen( L, 2);
+    sdata1=luaL_checklstring( L,2, &datalen );
+    strcat(sdata1,sdata2);
+    lua_pushstring(L,sdata1);
+    return 1;
+}
  static int load_arr(lua_State* L){
   int data;
   size_t datalen, i;
@@ -77,6 +90,7 @@ LROT_FUNCENTRY(sub, arithmetic_sub)
 LROT_FUNCENTRY(mul, arithmetic_mul)
 LROT_FUNCENTRY(div, arithmetic_div)
 LROT_FUNCENTRY(larr,load_arr)
+LROT_FUNCENTRY(sconcat,string_concat)
 LROT_END(module, NULL, 0)
 
 // module_init is invoked on device startup
