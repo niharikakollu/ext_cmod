@@ -53,13 +53,8 @@ static int arithmetic_mul(lua_State* L){
 // string concatination module
 static int string_concat(lua_State* L)
 {
-  //  size_t datalen,datalen2;
-   // datalen = lua_objlen( L, 1 );
-   // datalen2 = lua_objlen( L, 2);
    const char *sdata1=luaL_checkstring(L,1), *sdata2=luaL_checkstring(L,2);
      printf("two strings:%s\t%s\n",sdata1,sdata2);
-    //strcat(sdata1,sdata2);
-    //lua_pushfstring(L,sdata1,sdata2);
     lua_concat(L,2);
     return 1;
 }
@@ -70,14 +65,17 @@ static int string_concat(lua_State* L)
      if( lua_istable( L,1)){
      datalen = lua_objlen( L,1 );
       for( i = 0; i < datalen; i ++ ){
-       lua_rawgeti( L, 1, i + 1 );
-       data= ( int )luaL_checkinteger( L, -1 );
-       lua_pop( L, 1 );
-       if( data< 0 || data> 255 )
-       return luaL_error( L, "table value does not fit in 1 byte" );
-       printf("table data %d\n", data);  
-	 lua_pushinteger(L, (lua_Integer )data);
-         lua_rawseti( L,-2, i + 1 );	
+      lua_rawgeti( L, 1, i + 1 );
+    if(lua_type(L,-1)== LUA_TNUMBER){ 
+    lua_pushnumber(L, (lua_Number)luaL_checknumber(L,-1));
+     lua_pop( L, 1 );
+     lua_rawseti( L,-2, i + 1 );
+    }
+    else if(lua_type(L,-1)== LUA_TSTRING){
+     lua_pushstring(L,luaL_checkstring(L,-1));
+     lua_pop( L, 1 );
+     lua_rawseti( L,-2, i + 1 );
+    }
       }
      } 
    return 1;
