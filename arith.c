@@ -59,7 +59,6 @@ static int string_concat(lua_State* L)
     return 1;
 }
  static int load_arr(lua_State* L){
-  int data;
   size_t datalen, i;
    lua_newtable( L ); 
      if( lua_istable( L,1)){
