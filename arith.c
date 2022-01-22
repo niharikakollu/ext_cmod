@@ -3,12 +3,24 @@
 #include "lnodeaux.h"
 #include "module.h"
 #include<string.h>
+#define ADD_TABLE_ITEM(L, key, val) \
+  lua_pushstring (L, val);      \
+  lua_setfield (L, -2, key);
+
 typedef struct{
-  char *name;
-  char *task;
-  char *status;
+  const char *name;
+  const char *task;
+  const char *status;
 }task_table;
 static const char* ARITHMETIC_METATABLE = NODEMCU_MODULE_METATABLE();
+void inline structure_ToTable(lua_State *L, struct task_table *test )
+{ 
+  lua_createtable (L, 0, 3);
+  ADD_TABLE_ITEM (L, "names", test->name );
+  ADD_TABLE_ITEM (L, "tasks", test->task);
+  ADD_TABLE_ITEM (L, "statuss", test->status);
+}
+
 // addition module
 static int arithmetic_add(lua_State* L)
 {
@@ -89,7 +101,7 @@ static int table_key(lua_State* L){
   lua_getfield (L, 1, "status");
   test.status =  luaL_optstring(L, -1, "nill");
   printf("table elemnts are:%s\t%s\t%s\n",test.name,test.task,test.status);
-  lua_pushstring(L,"success table with keys");
+  structure_ToTable(L,&test);
     return 1;
 }
  static int load_arr(lua_State* L){
