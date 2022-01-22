@@ -91,7 +91,7 @@ static int decimal_binary(lua_State* L){
 }
 //  lopading table with key values.
 static int table_key(lua_State* L){  
-  task_table test;
+  struct task_table test;
   luaL_checkanytable (L, 1);
   lua_getfield (L, 1, "name");
   test.name = luaL_optstring(L, -1, "nill");
