@@ -3,6 +3,11 @@
 #include "lnodeaux.h"
 #include "module.h"
 #include<string.h>
+typedef struct{
+  char *name;
+  char *task;
+  char *status;
+}task_table;
 static const char* ARITHMETIC_METATABLE = NODEMCU_MODULE_METATABLE();
 // addition module
 static int arithmetic_add(lua_State* L)
@@ -73,6 +78,20 @@ static int decimal_binary(lua_State* L){
   lua_pushnumber(L, (lua_Number)bin_num);
     return 1;
 }
+//  lopading table with key values.
+static int table_key(lua_State* L){  
+  task_table test;
+  luaL_checkanytable (L, 1);
+  lua_getfield (L, 1, "name");
+  test.name = luaL_optstring(L, -1, "nill");
+  lua_getfield (L, 1, "task");
+  test.task =  luaL_optstring(L, -1, "nill");
+  lua_getfield (L, 1, "status");
+  test.status =  luaL_optstring(L, -1, "nill");
+  printf("table elemnts are:%s\t%s\t%s\n",test.name,test.task,test.status);
+  lua_pushstring(L,"success table with keys");
+    return 1;
+}
  static int load_arr(lua_State* L){
   size_t datalen, i;
    lua_newtable( L ); 
@@ -103,6 +122,7 @@ LROT_FUNCENTRY(sub, arithmetic_sub)
 LROT_FUNCENTRY(mul, arithmetic_mul)
 LROT_FUNCENTRY(div, arithmetic_div)
 LROT_FUNCENTRY(larr,load_arr)
+LROT_FUNCENTRY(tkey,table_key)
 LROT_FUNCENTRY(sconcat,string_concat)
 LROT_FUNCENTRY(dectobin,decimal_binary)
 LROT_END(module, NULL, 0)
