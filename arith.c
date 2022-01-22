@@ -6,12 +6,11 @@
 #define ADD_TABLE_ITEM(L, key, val) \
   lua_pushstring (L, val);      \
   lua_setfield (L, -2, key);
-
-typedef struct{
+ struct task_table{
   const char *name;
   const char *task;
   const char *status;
-}task_table;
+};
 static const char* ARITHMETIC_METATABLE = NODEMCU_MODULE_METATABLE();
 void inline structure_ToTable(lua_State *L, struct task_table *test )
 { 
