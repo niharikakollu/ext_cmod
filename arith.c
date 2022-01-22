@@ -13,12 +13,12 @@ typedef struct{
   const char *status;
 }task_table;
 static const char* ARITHMETIC_METATABLE = NODEMCU_MODULE_METATABLE();
-void inline structure_ToTable(lua_State *L, struct task_table test )
+void inline structure_ToTable(lua_State *L, struct task_table tst )
 { 
   lua_createtable (L, 0, 3);
-  ADD_TABLE_ITEM (L, "name", test->name );
-  ADD_TABLE_ITEM (L, "task", test->task);
-  ADD_TABLE_ITEM (L, "status", test->status);
+  ADD_TABLE_ITEM (L, "name", tst->name );
+  ADD_TABLE_ITEM (L, "task", tst->task);
+  ADD_TABLE_ITEM (L, "status", tst->status);
 }
 
 // addition module
