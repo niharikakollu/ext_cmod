@@ -16,9 +16,9 @@ static const char* ARITHMETIC_METATABLE = NODEMCU_MODULE_METATABLE();
 void inline structure_ToTable(lua_State *L, struct task_table *test )
 { 
   lua_createtable (L, 0, 3);
-  ADD_TABLE_ITEM (L, "names", test.name );
-  ADD_TABLE_ITEM (L, "tasks", test.task);
-  ADD_TABLE_ITEM (L, "statuss", test.status);
+  ADD_TABLE_ITEM (L, "name", test.name );
+  ADD_TABLE_ITEM (L, "task", test.task);
+  ADD_TABLE_ITEM (L, "status", test.status);
 }
 
 // addition module
