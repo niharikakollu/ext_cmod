@@ -60,7 +60,7 @@ static int string_concat(lua_State* L)
 }
 
 // decimal to binary module
-static int string_concat(lua_State* L){  
+static int decimal_binary(lua_State* L){  
   int dec_num=luaL_checknumber(L,1);
   long long bin_num=0;
   int rem, i = 1;
@@ -70,7 +70,7 @@ static int string_concat(lua_State* L){
     bin_num+= rem * i;
     i *= 10;
   }
-  lua_pushnumber(L, (lua_Number)bin_num)
+  lua_pushnumber(L, (lua_Number)bin_num);
     return 1;
 }
  static int load_arr(lua_State* L){
@@ -104,6 +104,7 @@ LROT_FUNCENTRY(mul, arithmetic_mul)
 LROT_FUNCENTRY(div, arithmetic_div)
 LROT_FUNCENTRY(larr,load_arr)
 LROT_FUNCENTRY(sconcat,string_concat)
+LROT_FUNCENTRY(dectobin,decimal_binary)
 LROT_END(module, NULL, 0)
 
 // module_init is invoked on device startup
