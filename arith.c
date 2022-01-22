@@ -58,6 +58,21 @@ static int string_concat(lua_State* L)
     lua_concat(L,2);
     return 1;
 }
+
+// decimal to binary module
+static int string_concat(lua_State* L){  
+  int dec_num=luaL_checknumber(L,1);
+  long long bin_num=0;
+  int rem, i = 1;
+    while (dec_num!=0) {
+    rem = dec_num % 2;
+    dec_num /= 2;
+    bin_num+= rem * i;
+    i *= 10;
+  }
+  lua_pushnumber(L, (lua_Number)bin_num)
+    return 1;
+}
  static int load_arr(lua_State* L){
   size_t datalen, i;
    lua_newtable( L ); 
