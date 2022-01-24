@@ -1,36 +1,58 @@
 #include <stdio.h>
+
 extern "C" {
 	#include "lua.h"
 	#include "lualib.h"
 	#include "lauxlib.h"
-static const char* TESTCPLUS_METATABLE = NODEMCU_MODULE_METATABLE();	
 }
+
+/* the Lua interpreter */
 lua_State* L;
-static int sum_average(lua_State *L)
+
+static int average(lua_State *L)
 {
 	/* get number of arguments */
 	int n = lua_gettop(L);
 	double sum = 0;
 	int i;
+
+	/* loop through each argument */
 	for (i = 1; i <= n; i++)
 	{
+		/* total the arguments */
 		sum += lua_tonumber(L, i);
 	}
+
+	/* push the average */
 	lua_pushnumber(L, sum / n);
+
+	/* push the sum */
 	lua_pushnumber(L, sum);
+
+	/* return the number of results */
 	return 2;
 }
-LROT_BEGIN(testcplus_metatable)
-LROT_END(testcplus_metatable, NULL, 0)
 
-LROT_BEGIN(module)
-LROT_FUNCENTRY(sum,sum_average )
-LROT_END(module, NULL, 0)
+int main ( int argc, char *argv[] )
+{
+	/* initialize Lua */
+	L = lua_open();
 
-// module_init is invoked on device startup
-static int module_init(lua_State* L) {
-    luaL_rometatable(L, TESTCPLUS_METATABLE, (void*)testcplus_metatable_map);  // create metatable for arithmetic
-    return 0;
+	/* load Lua base libraries */
+	luaL_openlibs(L);
+
+	/* register our function */
+	lua_register(L, "average", average);
+
+	/* run the script */
+	luaL_dofile(L, "avg.lua");
+
+	/* cleanup Lua */
+	lua_close(L);
+
+	/* pause */
+	printf( "Press enter to exit..." );
+	getchar();
+
+	return 0;
 }
-
-NODEMCU_MODULE_STD();  // define Lua entrie
