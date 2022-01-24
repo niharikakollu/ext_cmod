@@ -3,8 +3,8 @@ extern "C" {
 	#include "lua.h"
 	#include "lualib.h"
 	#include "lauxlib.h"
+static const char* TESTCPLUS_METATABLE = NODEMCU_MODULE_METATABLE();	
 }
-static const char* TESTCPLUS_METATABLE = NODEMCU_MODULE_METATABLE();
 lua_State* L;
 static int sum_average(lua_State *L)
 {
