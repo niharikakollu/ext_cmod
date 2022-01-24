@@ -4,9 +4,8 @@ extern "C" {
 	#include "lualib.h"
 	#include "lauxlib.h"
 }
-/* the Lua interpreter */
-lua_State* L;
 static const char* TESTCPLUS_METATABLE = NODEMCU_MODULE_METATABLE();
+lua_State* L;
 static int sum_average(lua_State *L)
 {
 	/* get number of arguments */
