@@ -6,7 +6,7 @@ extern "C" {
 }
 /* the Lua interpreter */
 lua_State* L;
-static const char* TEATCPLUS_METATABLE = NODEMCU_MODULE_METATABLE();
+static const char* TESTCPLUS_METATABLE = NODEMCU_MODULE_METATABLE();
 static int sum_average(lua_State *L)
 {
 	/* get number of arguments */
@@ -30,7 +30,7 @@ LROT_END(module, NULL, 0)
 
 // module_init is invoked on device startup
 static int module_init(lua_State* L) {
-    luaL_rometatable(L, TEATCPLUS_METATABLE, (void*)testcplus_metatable_map);  // create metatable for arithmetic
+    luaL_rometatable(L, TESTCPLUS_METATABLE, (void*)testcplus_metatable_map);  // create metatable for arithmetic
     return 0;
 }
 
