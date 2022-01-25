@@ -17,14 +17,14 @@ static int average_sum(lua_State *L)
 }
 LROT_BEGIN(testcplus_metatable)
 LROT_END(testcplus_metatable, NULL, 0)
-LROT_BEGIN(module)
+LROT_BEGIN(test)
 LROT_FUNCENTRY(avg, average_sum)
-LROT_END(module, NULL, 0)
+LROT_END(test, NULL, 0)
 
 // module_init is invoked on device startup
 static int module_init(lua_State* L) {
-    luaL_rometatable(L, "TESTCPLUS_METATABLE", (void*)testcplus_metatable_map);  // create metatable for arithmetic
+    luaL_rometatable(L, "test.cplus", (void*)testcplus_metatable_map); 
     return 0;
 }
 
-NODEMCU_MODULE_STD();  
+NODEMCU_MODULE(TEST,"test", test,module_init);  
