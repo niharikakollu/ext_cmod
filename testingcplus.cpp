@@ -15,8 +15,8 @@ static int average_sum(lua_State *L)
 	lua_pushnumber(L, sum);
 	return 2;
 }
-LROT_BEGIN(testcplus_metatable)
-LROT_END(testcplus_metatable, NULL, 0)
+//LROT_BEGIN(testcplus_metatable)
+//LROT_END(testcplus_metatable, NULL, 0)
 LROT_BEGIN(test)
 LROT_FUNCENTRY(avg, average_sum)
 LROT_END(test, NULL, 0)
