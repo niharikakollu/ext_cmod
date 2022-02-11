@@ -3,6 +3,8 @@
 #include "lnodeaux.h"
 #include "module.h"
 #include<string.h>
+#include<stdlib.h>
+#include<math.h>
 #define ADD_TABLE_ITEM(L, key, val) \
   lua_pushstring (L, val);      \
   lua_setfield (L, -2, key);
