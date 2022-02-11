@@ -24,7 +24,7 @@ void inline structure_ToTable(lua_State *L, struct task_table *test )
 }
 static int teal_scheduler_table(lua_State *L){
  int *zon,*sw,*dur,i=0;
-size_t datalen
+size_t datalen;
 struct localstruct SPprog_tab;
  if( lua_istable( L,1)){
  lua_getfield(L,1,"zone_id");
@@ -157,6 +157,47 @@ lua_settable(L,-(len+1));
  free(dur);
  return 1;
 }
+
+static int partition (int *a, int start, int end){
+    int pivot = a[end],i = (start - 1);
+    for (int j = start; j <= end - 1; j++){
+     if (a[j] < pivot){
+         i++;
+         int t = a[i];
+         a[i] = a[j];
+         a[j] = t;
+        }
+    }
+    int t = a[i+1];
+    a[i+1] = a[end];
+    a[end] = t;
+    return (i + 1);
+}
+static void quick(int *a, int start, int end){
+    if (start < end){
+    int p = partition(a, start, end);
+    quick(a, start, p - 1);
+    quick(a, p + 1, end);
+    }
+}
+
+static int repeated_seq(int*array,int pos,int num,int len){
+ int cnt=0;
+for (int i=pos;i<len;i++){
+ if (array[i]==num)
+  cnt=cnt+1;
+}
+ return cnt;
+}
+static int find_val_match(int *a,int len,int val){
+ for(int i=0;i<len;i++){
+  if(val==a[i])
+   return i;
+ }
+ return 0;
+}
+
+
 // addition module
 static int arithmetic_add(lua_State* L)
 {
