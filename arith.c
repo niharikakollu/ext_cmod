@@ -69,7 +69,9 @@ struct localstruct SPprog_tab;
   }
  }
  else
-   luaL_error (L, "Not an array"); zon=(int*)calloc(datalen,sizeof(int));
+   luaL_error (L, "Not an array"); 
+ }
+zon=(int*)calloc(datalen,sizeof(int));
  sw=(int*)calloc(datalen,sizeof(int));
  dur=(int*)calloc(datalen,sizeof(int));
  int k=0,cur_seq=0,crt_ix=0;
