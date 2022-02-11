@@ -25,7 +25,7 @@ void inline structure_ToTable(lua_State *L, struct task_table *test )
   ADD_TABLE_ITEM (L, "status", test->status);
 }
 static int teal_scheduler_table(lua_State *L){
- int *zon,*sw,*dur,i=0;
+ int i=0;
 size_t datalen;
 struct localstruct SPprog_tab;
  if( lua_istable( L,1)){
