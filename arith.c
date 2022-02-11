@@ -19,7 +19,139 @@ void inline structure_ToTable(lua_State *L, struct task_table *test )
   ADD_TABLE_ITEM (L, "task", test->task);
   ADD_TABLE_ITEM (L, "status", test->status);
 }
-
+static int teal_scheduler_table(lua_State *L){
+ int *zon,*sw,*dur,i=0;
+size_t datalen
+struct localstruct SPprog_tab;
+ if( lua_istable( L,1)){
+ lua_getfield(L,1,"zone_id");
+ if (lua_type(L, -1)==LUA_TTABLE){
+    printf("failed");
+    datalen = lua_objlen(L,1);
+    SPprog_tab.zone_id=(int*)calloc(datalen, sizeof(int));
+	for( i = 0; i < datalen; i ++ ){
+		lua_rawgeti( L, 1, i + 1 );
+     SPprog_tab.zone_id[i]=lua_tointeger (L, -1);
+     printf("%d\t",SPprog_tab.zone_id[i]);
+      lua_pop (L, 2);
+    }
+ }
+ else
+	 luaL_error (L, "Not an array");
+ lua_getfield(L,1,"duration_mins");
+ if (lua_type(L, -1) == LUA_TTABLE){
+     datalen = lua_objlen(L,1);
+    printf("failed1\n");
+    SPprog_tab.duration_mins=(int*)calloc(datalen, sizeof(int));
+    for( i = 0; i < datalen; i ++ ){
+		lua_rawgeti( L, 1, i + 1 );
+     SPprog_tab.duration_mins[i]=lua_tointeger (L, -1);
+     printf("%d\t",SPprog_tab.duration_mins[i]);
+      lua_pop (L, 2);
+    }
+ }
+ else
+   luaL_error (L, "Not an array");
+ lua_getfield(L,1,"seq_num");
+ if (lua_type(L, -1) == LUA_TTABLE){
+   datalen = lua_objlen( L,1 );
+   printf("failed2\n");
+   SPprog_tab.seq_num=(int*)calloc(datalen, sizeof(int));
+   int i=0;
+  for( i = 0; i < datalen; i ++ ){
+		lua_rawgeti( L, 1, i + 1 );
+     SPprog_tab.seq_num[i]=lua_tointeger (L, -1);
+     printf("%d\t",SPprog_tab.seq_num[i]);
+      lua_pop (L, 2);
+  }
+ }
+ else
+   luaL_error (L, "Not an array"); zon=(int*)calloc(datalen,sizeof(int));
+ sw=(int*)calloc(datalen,sizeof(int));
+ dur=(int*)calloc(datalen,sizeof(int));
+ int k=0,cur_seq=0,crt_ix=0;
+ while(crt_ix<=datalen){
+  cur_seq=repeated_seq(SPprog_tab.seq_num,crt_ix,SPprog_tab.seq_num[crt_ix],datalen);
+  if (cur_seq==1){
+   sw[k]=1;
+   zon[k]=SPprog_tab.zone_id[crt_ix];
+   dur[k]=0;
+   k=k+1;
+   sw[k]=0;
+   zon[k]=SPprog_tab.zone_id[crt_ix];
+   dur[k]=SPprog_tab.duration_mins[crt_ix];
+   k=k+1;
+  }
+  else{
+    int buff[cur_seq],low_val=0,tp=k;
+    for(int i=0;i<cur_seq;i++){
+     buff[i]=SPprog_tab.duration_mins[crt_ix+i-1];
+     sw[tp]=1;
+     dur[tp]=0;
+     tp++;
+    }
+    quick(buff,0,cur_seq-1);
+    int s[cur_seq],l=k,m=0;
+    for(int i=0;i<cur_seq;i++){
+      for(int j=0; j<cur_seq; j++){
+        if(buff[i]==SPprog_tab.duration_mins[crt_ix+i-1]){
+          if(find_val_match(s,cur_seq,buff[i])==0){
+            sw[k]=0;
+            zon[l]=SPprog_tab.zone_id[crt_ix+i-1];
+            zon[k]=SPprog_tab.zone_id[crt_ix+i-1];
+            dur[k]=buff[i]-low_val;
+            s[m]=i;
+            k++;
+            l++;
+            m++;
+            low_val=buff[i];
+            break;
+          }
+        }
+      }
+    }
+  }
+  crt_ix+=cur_seq;
+ }
+ //lua_createtable(L,3,0);
+ printf("failed3\n");
+ lua_newtable(L);
+ lua_pushliteral(L,"switch");
+ lua_newtable(L);
+ size_t len=(sizeof(sw)/sizeof(sw[0]));
+ int len1=len,len2=len;
+ for(int i=0;i<(sizeof(sw)/sizeof(sw[0]));i++){
+   len1=len1+1-i;
+   len2=len2-i;
+   lua_pushnumber( L, (lua_Number)sw[i]);
+   lua_rawseti( L,-(len1), len2);
+  }
+ lua_pushliteral(L,"time");
+ lua_newtable(L);
+ len1=len;len2=len;
+ for(int i=0;i<(sizeof(sw)/sizeof(sw[0]));i++){
+   len1=len1+1-i;
+   len2=len2-i;
+   lua_pushnumber( L, (lua_Number)dur[i]);
+   lua_rawseti( L,-(len1), len2);
+  }
+ lua_pushliteral(L,"zone");
+ lua_newtable(L);
+ len1=len;len2=len;
+ for(int i=0;i<(sizeof(sw)/sizeof(sw[0]));i++){
+   len1=len1+1-i;
+   len2=len2-i;
+   lua_pushnumber( L, (lua_Number)zon[i]);
+   lua_rawseti( L,-(len1), len2);
+  }
+lua_settable(L,-(len+1));
+lua_settable(L,-(len+1));
+lua_settable(L,-(len+1));
+ free(zon);
+ free(sw);
+ free(dur);
+ return 1;
+}
 // addition module
 static int arithmetic_add(lua_State* L)
 {
@@ -136,6 +268,7 @@ LROT_FUNCENTRY(larr,load_arr)
 LROT_FUNCENTRY(tkey,table_key)
 LROT_FUNCENTRY(sconcat,string_concat)
 LROT_FUNCENTRY(dectobin,decimal_binary)
+  LROT_FUNCENTRY(schedule_table,teal_scheduler_table)
 LROT_END(module, NULL, 0)
 
 // module_init is invoked on device startup
