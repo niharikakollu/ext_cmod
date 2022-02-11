@@ -173,15 +173,14 @@ static int partition (int *a, int start, int end){
     a[end] = t;
     return (i + 1);
 }
-static void quick(int *a, int start, int end){
+void quick(int *a, int start, int end){
     if (start < end){
     int p = partition(a, start, end);
     quick(a, start, p - 1);
     quick(a, p + 1, end);
     }
 }
-
-static int repeated_seq(int*array,int pos,int num,int len){
+int repeated_seq(int*array,int pos,int num,int len){
  int cnt=0;
 for (int i=pos;i<len;i++){
  if (array[i]==num)
@@ -189,7 +188,7 @@ for (int i=pos;i<len;i++){
 }
  return cnt;
 }
-static int find_val_match(int *a,int len,int val){
+int find_val_match(int *a,int len,int val){
  for(int i=0;i<len;i++){
   if(val==a[i])
    return i;
