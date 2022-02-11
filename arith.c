@@ -11,6 +11,9 @@
   const char *task;
   const char *status;
 };
+struct localstruct{
+ int *zone_id,*duration_mins,*seq_num;
+};
 static const char* ARITHMETIC_METATABLE = NODEMCU_MODULE_METATABLE();
 void inline structure_ToTable(lua_State *L, struct task_table *test )
 { 
